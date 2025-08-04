@@ -1,6 +1,6 @@
 use actix_web::{web, HttpResponse, Result};
 use crate::services::file_service::FileService;
-use crate::models::InitUploadRequest;
+use crate::models::body::request::InitUploadRequest;
 
 pub async fn download(path: web::Path<String>) -> Result<HttpResponse> {
     let session_id = path.into_inner();

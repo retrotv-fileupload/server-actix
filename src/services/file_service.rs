@@ -1,4 +1,4 @@
-use crate::models::InitUploadRequest;
+use crate::models::body::request::InitUploadRequest;
 
 pub struct FileService;
 

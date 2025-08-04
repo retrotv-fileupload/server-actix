@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/Cargo.toml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Cargo.toml" />
+              <option name="originalContent" value="[package]&#10;name = &quot;fileserver-rust&quot;&#10;version = &quot;0.1.0&quot;&#10;edition = &quot;2024&quot;&#10;&#10;[dependencies]&#10;actix-web = &quot;4.9&quot;&#10;tokio = { version = &quot;1&quot;, features = [&quot;full&quot;] }&#10;serde_json = &quot;1.0&quot;&#10;serde = { version = &quot;1.0&quot;, features = [&quot;derive&quot;] }&#10;sea-orm = { version = &quot;1.0&quot;, features = [ &quot;sqlx-sqlite&quot;, &quot;runtime-tokio-rustls&quot;, &quot;macros&quot; ] }&#10;sea-orm-migration = { version = &quot;1.0&quot;, features = [ &quot;sqlx-sqlite&quot;, &quot;runtime-tokio-rustls&quot; ] }&#10;chrono = { version = &quot;0.4&quot;, features = [&quot;serde&quot;] }&#10;migration = { path = &quot;migration&quot; }&#10;" />
+              <option name="updatedContent" value="[package]&#10;name = &quot;fileserver-rust&quot;&#10;version = &quot;0.1.0&quot;&#10;edition = &quot;2024&quot;&#10;&#10;[dependencies]&#10;actix-web = &quot;4.9&quot;&#10;tokio = { version = &quot;1&quot;, features = [&quot;full&quot;] }&#10;serde_json = &quot;1.0&quot;&#10;serde = { version = &quot;1.0&quot;, features = [&quot;derive&quot;] }&#10;sea-orm = { version = &quot;1.0&quot;, features = [ &quot;sqlx-sqlite&quot;, &quot;runtime-tokio-rustls&quot;, &quot;macros&quot; ] }&#10;sea-orm-migration = { version = &quot;1.0&quot;, features = [ &quot;sqlx-sqlite&quot;, &quot;runtime-tokio-rustls&quot; ] }&#10;chrono = { version = &quot;0.4&quot;, features = [&quot;serde&quot;] }&#10;uuid = { version = &quot;1.8&quot;, features = [&quot;v7&quot;, &quot;serde&quot;] }&#10;migration = { path = &quot;migration&quot; }" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/migration/Cargo.toml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/migration/Cargo.toml" />
+              <option name="originalContent" value="[package]&#10;name = &quot;migration&quot;&#10;version = &quot;0.1.0&quot;&#10;edition = &quot;2021&quot;&#10;publish = false&#10;&#10;[lib]&#10;name = &quot;migration&quot;&#10;path = &quot;src/lib.rs&quot;&#10;&#10;[dependencies]&#10;async-std = { version = &quot;1&quot;, features = [&quot;attributes&quot;, &quot;tokio1&quot;] }&#10;&#10;[dependencies.sea-orm-migration]&#10;version = &quot;1.0&quot;&#10;features = [&#10;  &quot;sqlx-sqlite&quot;,&#10;  &quot;runtime-tokio-rustls&quot;,&#10;]&#10;" />
+              <option name="updatedContent" value="[package]&#10;name = &quot;migration&quot;&#10;version = &quot;0.1.0&quot;&#10;edition = &quot;2021&quot;&#10;publish = false&#10;&#10;[lib]&#10;name = &quot;migration&quot;&#10;path = &quot;src/lib.rs&quot;&#10;&#10;[dependencies]&#10;async-std = { version = &quot;1&quot;, features = [&quot;attributes&quot;, &quot;tokio1&quot;] }&#10;async-trait = &quot;0.1&quot;&#10;&#10;[dependencies.sea-orm-migration]&#10;version = &quot;1.0&quot;&#10;features = [&#10;  &quot;sqlx-sqlite&quot;,&#10;  &quot;runtime-tokio-rustls&quot;,&#10;]" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/migration/src/lib.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/migration/src/lib.rs" />
+              <option name="originalContent" value="pub use sea_orm_migration::prelude::*;&#10;&#10;mod m20220101_000001_create_table;&#10;&#10;pub struct Migrator;&#10;&#10;#[async_trait::async_trait]&#10;impl MigratorTrait for Migrator {&#10;    fn migrations() -&gt; Vec&lt;Box&lt;dyn MigrationTrait&gt;&gt; {&#10;        vec![&#10;            Box::new(m20220101_000001_create_table::Migration),&#10;        ]&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="pub use sea_orm_migration::prelude::*;&#10;&#10;mod m20220101_000001_create_table;&#10;&#10;pub struct Migrator;&#10;&#10;#[async_trait::async_trait]&#10;impl MigratorTrait for Migrator {&#10;    fn migrations() -&gt; Vec&lt;Box&lt;dyn MigrationTrait&gt;&gt; {&#10;        vec![&#10;            Box::new(m20220101_000001_create_table::Migration),&#10;        ]&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/migration/src/m20220101_000001_create_table.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/migration/src/m20220101_000001_create_table.rs" />
+              <option name="originalContent" value="use sea_orm_migration::prelude::*;&#10;&#10;#[derive(DeriveMigrationName)]&#10;pub struct Migration;&#10;&#10;#[async_trait::async_trait]&#10;impl MigrationTrait for Migration {&#10;    async fn up(&amp;self, manager: &amp;SchemaManager) -&gt; Result&lt;(), DbErr&gt; {&#10;        manager&#10;            .create_table(&#10;                Table::create()&#10;                    .table(FileSession::Table)&#10;                    .if_not_exists()&#10;                    .col(&#10;                        ColumnDef::new(FileSession::Id)&#10;                            .integer()&#10;                            .not_null()&#10;                            .auto_increment()&#10;                            .primary_key(),&#10;                    )&#10;                    .col(ColumnDef::new(FileSession::SessionId).string().not_null().unique_key())&#10;                    .col(ColumnDef::new(FileSession::FileName).string().not_null())&#10;                    .col(ColumnDef::new(FileSession::FileSize).big_integer().not_null())&#10;                    .col(ColumnDef::new(FileSession::UploadedSize).big_integer().not_null().default(0))&#10;                    .col(ColumnDef::new(FileSession::Status).string().not_null().default(&quot;pending&quot;))&#10;                    .col(ColumnDef::new(FileSession::CreatedAt).timestamp().not_null())&#10;                    .col(ColumnDef::new(FileSession::UpdatedAt).timestamp().not_null())&#10;                    .to_owned(),&#10;            )&#10;            .await&#10;    }&#10;&#10;    async fn down(&amp;self, manager: &amp;SchemaManager) -&gt; Result&lt;(), DbErr&gt; {&#10;        manager&#10;            .drop_table(Table::drop().table(FileSession::Table).to_owned())&#10;            .await&#10;    }&#10;}&#10;&#10;#[derive(DeriveIden)]&#10;enum FileSession {&#10;    Table,&#10;    Id,&#10;    SessionId,&#10;    FileName,&#10;    FileSize,&#10;    UploadedSize,&#10;    Status,&#10;    CreatedAt,&#10;    UpdatedAt,&#10;}&#10;" />
+              <option name="updatedContent" value="use sea_orm_migration::prelude::*;&#10;&#10;#[derive(DeriveMigrationName)]&#10;pub struct Migration;&#10;&#10;#[async_trait::async_trait]&#10;impl MigrationTrait for Migration {&#10;    async fn up(&amp;self, manager: &amp;SchemaManager) -&gt; Result&lt;(), DbErr&gt; {&#10;        manager&#10;            .create_table(&#10;                Table::create()&#10;                    .table(File::Table)&#10;                    .if_not_exists()&#10;                    .col(&#10;                        ColumnDef::new(File::SavedFileName)&#10;                            .string()&#10;                            .not_null()&#10;                            .primary_key(),  // UUID v7 문자열을 primary key로 설정&#10;                    )&#10;                    .col(ColumnDef::new(File::OriginalFileName).string().not_null())&#10;                    .col(ColumnDef::new(File::FileSize).big_integer().not_null())&#10;                    .col(ColumnDef::new(File::Status).string().not_null().default(&quot;pending&quot;))&#10;                    .col(ColumnDef::new(File::CreatedAt).timestamp().not_null())&#10;                    .col(ColumnDef::new(File::UpdatedAt).timestamp().not_null())&#10;                    .to_owned(),&#10;            )&#10;            .await&#10;    }&#10;&#10;    async fn down(&amp;self, manager: &amp;SchemaManager) -&gt; Result&lt;(), DbErr&gt; {&#10;        manager&#10;            .drop_table(Table::drop().table(File::Table).to_owned())&#10;            .await&#10;    }&#10;}&#10;&#10;#[derive(DeriveIden)]&#10;enum File {&#10;    Table,&#10;    SavedFileName,    // UUID v7 primary key&#10;    OriginalFileName, // 원본 파일명&#10;    FileSize,&#10;    Status,&#10;    CreatedAt,&#10;    UpdatedAt,&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/config/database.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/config/database.rs" />
+              <option name="originalContent" value="use sea_orm::{Database, DatabaseConnection, DbErr};&#10;&#10;pub struct DatabaseConfig;&#10;&#10;impl DatabaseConfig {&#10;    pub async fn connect() -&gt; Result&lt;DatabaseConnection, DbErr&gt; {&#10;        let database_url = &quot;sqlite:./data/app.db?mode=rwc&quot;;&#10;        Database::connect(database_url).await&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="use sea_orm::{Database, DatabaseConnection, DbErr};&#10;use std::fs;&#10;use std::path::Path;&#10;&#10;pub struct DatabaseConfig;&#10;&#10;impl DatabaseConfig {&#10;    pub async fn connect() -&gt; Result&lt;DatabaseConnection, DbErr&gt; {&#10;        // data 폴더가 없으면 생성&#10;        let data_dir = &quot;./data&quot;;&#10;        if !Path::new(data_dir).exists() {&#10;            fs::create_dir_all(data_dir)&#10;                .map_err(|e| DbErr::Custom(format!(&quot;폴더 생성 실패: {}&quot;, e)))?;&#10;        }&#10;        &#10;        let database_url = &quot;sqlite:./data/app.db?mode=rwc&quot;;&#10;        println!(&quot;데이터베이스 연결 시도: {}&quot;, database_url);&#10;        &#10;        Database::connect(database_url).await&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/config/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/config/mod.rs" />
+              <option name="updatedContent" value="pub mod database;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/controllers/main_controller.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/controllers/main_controller.rs" />
+              <option name="updatedContent" value="use actix_web::{web, HttpResponse, Result};&#10;use crate::services::main_service::MainService;&#10;&#10;pub struct MainController;&#10;&#10;impl MainController {&#10;    pub async fn hello() -&gt; Result&lt;HttpResponse&gt; {&#10;        let message = MainService::get_hello_message().await;&#10;        Ok(HttpResponse::Ok().json(serde_json::json!({&#10;            &quot;message&quot;: message&#10;        })))&#10;    }&#10;}&#10;&#10;pub fn configure(cfg: &amp;mut web::ServiceConfig) {&#10;    cfg.service(&#10;        web::scope(&quot;/api&quot;)&#10;            .route(&quot;/hello&quot;, web::get().to(MainController::hello))&#10;    );&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/controllers/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/controllers/mod.rs" />
+              <option name="updatedContent" value="pub mod main_controller;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/handlers/file_handlers.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/handlers/file_handlers.rs" />
+              <option name="originalContent" value="use actix_web::{web, HttpResponse, Result};&#10;use crate::services::file_service::FileService;&#10;&#10;pub async fn download(path: web::Path&lt;String&gt;) -&gt; Result&lt;HttpResponse&gt; {&#10;    let session_id = path.into_inner();&#10;    let message = FileService::download(session_id).await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn init() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::init().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn chunk() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::chunk().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn complete() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::complete().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn cancel() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::cancel().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn status() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::status().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;" />
+              <option name="updatedContent" value="use actix_web::{web, HttpResponse, Result};&#10;use crate::services::file_service::FileService;&#10;use crate::models::InitUploadRequest;&#10;&#10;pub async fn download(path: web::Path&lt;String&gt;) -&gt; Result&lt;HttpResponse&gt; {&#10;    let session_id = path.into_inner();&#10;    let message = FileService::download(session_id).await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn init(req: web::Json&lt;InitUploadRequest&gt;) -&gt; Result&lt;HttpResponse&gt; {&#10;    let upload_request = req.into_inner();&#10;    let message = FileService::init(upload_request).await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn chunk() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::chunk().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn complete() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::complete().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn cancel() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::cancel().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn status() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = FileService::status().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/handlers/main_handlers.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/handlers/main_handlers.rs" />
+              <option name="originalContent" value="use actix_web::{get, HttpResponse, Result};&#10;use crate::services::main_service::MainService;&#10;&#10;#[get(&quot;/api/hello&quot;)]&#10;pub async fn hello() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = MainService::get_hello_message().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="use actix_web::{web, HttpResponse, Result};&#10;use crate::services::main_service::MainService;&#10;use crate::models::user_models::{CreateUserRequest, CreateUserResponse};&#10;&#10;pub async fn hello() -&gt; Result&lt;HttpResponse&gt; {&#10;    let message = MainService::get_hello_message().await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn welcome(path: web::Path&lt;String&gt;) -&gt; Result&lt;HttpResponse&gt; {&#10;    let name = path.into_inner();&#10;    let message = MainService::get_welcome_message(&amp;name).await;&#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;message&quot;: message&#10;    })))&#10;}&#10;&#10;pub async fn create_user(req: web::Json&lt;CreateUserRequest&gt;) -&gt; Result&lt;HttpResponse&gt; {&#10;    let user_data = req.into_inner();&#10;    let response = MainService::create_user(user_data.name, user_data.email).await;&#10;    &#10;    Ok(HttpResponse::Created().json(response))&#10;}&#10;&#10;pub async fn update_message(req: web::Json&lt;serde_json::Value&gt;) -&gt; Result&lt;HttpResponse&gt; {&#10;    let new_message = req.get(&quot;message&quot;)&#10;        .and_then(|v| v.as_str())&#10;        .unwrap_or(&quot;Default message&quot;);&#10;    &#10;    let result = MainService::update_message(new_message).await;&#10;    &#10;    Ok(HttpResponse::Ok().json(serde_json::json!({&#10;        &quot;success&quot;: true,&#10;        &quot;message&quot;: result&#10;    })))&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/handlers/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/handlers/mod.rs" />
+              <option name="updatedContent" value="pub mod main_handlers;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main.rs" />
+              <option name="originalContent" value="use actix_web::{App, HttpServer};&#10;use sea_orm_migration::prelude::*;&#10;&#10;mod config;&#10;mod handlers;&#10;mod models;&#10;mod routes;&#10;mod services;&#10;&#10;use config::database::DatabaseConfig;&#10;use routes::main_routes;&#10;use crate::routes::file_routes;&#10;&#10;#[actix_web::main]&#10;async fn main() -&gt; std::io::Result&lt;()&gt; {&#10;    println!(&quot;서버를 시작합니다: http://localhost:8080&quot;);&#10;&#10;    // 데이터베이스 연결&#10;    let db = DatabaseConfig::connect()&#10;        .await&#10;        .expect(&quot;데이터베이스 연결 실패&quot;);&#10;&#10;    // 마이그레이션 실행 - MigratorTrait을 사용&#10;    migration::Migrator::up(&amp;db, None)&#10;        .await&#10;        .expect(&quot;마이그레이션 실행 실패&quot;);&#10;&#10;    println!(&quot;데이터베이스 연결 및 마이그레이션 완료&quot;);&#10;&#10;    HttpServer::new(move || {&#10;        App::new()&#10;            .app_data(actix_web::web::Data::new(db.clone()))&#10;            .service(&#10;                main_routes::main_routes()&#10;                    .service(file_routes::file_routes())&#10;            )&#10;    })&#10;    .bind(&quot;127.0.0.1:8080&quot;)?&#10;    .run()&#10;    .await&#10;}&#10;" />
+              <option name="updatedContent" value="use actix_web::{App, HttpServer};&#10;use sea_orm_migration::prelude::*;&#10;&#10;mod config;&#10;mod handlers;&#10;mod models;&#10;mod routes;&#10;mod services;&#10;&#10;use config::database::DatabaseConfig;&#10;use routes::main_routes;&#10;use crate::routes::file_routes;&#10;&#10;#[actix_web::main]&#10;async fn main() -&gt; std::io::Result&lt;()&gt; {&#10;    println!(&quot;서버를 시작합니다: http://localhost:8080&quot;);&#10;&#10;    // 데이터베이스 연결&#10;    let db = match DatabaseConfig::connect().await {&#10;        Ok(connection) =&gt; {&#10;            println!(&quot;✅ 데이터베이스 연결 성공!&quot;);&#10;            connection&#10;        }&#10;        Err(e) =&gt; {&#10;            eprintln!(&quot;❌ 데이터베이스 연결 실패: {:?}&quot;, e);&#10;            eprintln!(&quot;현재 작업 디렉토리: {:?}&quot;, std::env::current_dir().unwrap());&#10;            std::process::exit(1);&#10;        }&#10;    };&#10;&#10;    // 마이그레이션 실행 - MigratorTrait을 사용&#10;    match migration::Migrator::up(&amp;db, None).await {&#10;        Ok(_) =&gt; println!(&quot;✅ 마이그레이션 완료!&quot;),&#10;        Err(e) =&gt; {&#10;            eprintln!(&quot;❌ 마이그레이션 실행 실패: {:?}&quot;, e);&#10;            std::process::exit(1);&#10;        }&#10;    }&#10;&#10;    println!(&quot; 데이터베이스 연결 및 마이그레이션 완료&quot;);&#10;&#10;    HttpServer::new(move || {&#10;        App::new()&#10;            .app_data(actix_web::web::Data::new(db.clone()))&#10;            .service(&#10;                main_routes::main_routes()&#10;                    .service(file_routes::file_routes())&#10;            )&#10;    })&#10;    .bind(&quot;127.0.0.1:8080&quot;)?&#10;    .run()&#10;    .await&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/models/entity/file.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/models/entity/file.rs" />
+              <option name="updatedContent" value="use sea_orm::entity::prelude::*;&#10;use sea_orm::Set;&#10;use serde::{Deserialize, Serialize};&#10;use uuid::Uuid;&#10;&#10;#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]&#10;#[sea_orm(table_name = &quot;file&quot;)]&#10;pub struct Model {&#10;    #[sea_orm(primary_key, auto_increment = false)]&#10;    pub saved_file_name: String,&#10;    pub original_file_name: String,&#10;    pub file_size: i64,&#10;    pub status: String,&#10;    pub created_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;    pub updated_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;}&#10;&#10;#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]&#10;pub enum Relation {}&#10;&#10;impl ActiveModelBehavior for ActiveModel {&#10;    fn new() -&gt; Self {&#10;        Self {&#10;            saved_file_name: Set(Uuid::now_v7().to_string()),&#10;            original_file_name: Set(String::new()),&#10;            file_size: Set(0),&#10;            status: Set(&quot;pending&quot;.to_string()),&#10;            created_at: Set(chrono::Utc::now()),&#10;            updated_at: Set(chrono::Utc::now()),&#10;        }&#10;    }&#10;}&#10;&#10;impl Model {&#10;    /// 새로운 파일 모델 생성 (UUID v7 자동 생성)&#10;    pub fn new_with_uuid(&#10;        original_file_name: String,&#10;        file_size: i64,&#10;        status: String,&#10;    ) -&gt; ActiveModel {&#10;        ActiveModel {&#10;            saved_file_name: Set(Uuid::now_v7().to_string()),&#10;            original_file_name: Set(original_file_name),&#10;            file_size: Set(file_size),&#10;            status: Set(status),&#10;            created_at: Set(chrono::Utc::now()),&#10;            updated_at: Set(chrono::Utc::now()),&#10;        }&#10;    }&#10;&#10;    /// UUID v7 값 검증 함수&#10;    pub fn validate_uuid_v7(&amp;self) -&gt; bool {&#10;        match Uuid::parse_str(&amp;self.saved_file_name) {&#10;            Ok(uuid) =&gt; {&#10;                // UUID v7 버전 확인 (version 7)&#10;                uuid.get_version() == Some(uuid::Version::SortRand)&#10;            }&#10;            Err(_) =&gt; false,&#10;        }&#10;    }&#10;&#10;    /// 새로운 UUID v7 생성 및 반환&#10;    pub fn generate_uuid_v7() -&gt; String {&#10;        Uuid::now_v7().to_string()&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/models/entity/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/models/entity/mod.rs" />
+              <option name="updatedContent" value="pub mod file;&#10;&#10;// 추후 다른 엔티티들도 여기에 추가&#10;// pub mod user;&#10;// pub mod file_session;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/models/file.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/models/file.rs" />
+              <option name="originalContent" value="use sea_orm::entity::prelude::*;&#10;use sea_orm::{Set, ActiveModelTrait};  // Set과 ActiveModelTrait import 추가&#10;use serde::{Deserialize, Serialize};&#10;use uuid::Uuid;&#10;&#10;#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]&#10;#[sea_orm(table_name = &quot;file&quot;)]&#10;pub struct Model {&#10;    #[sea_orm(primary_key, auto_increment = false)]&#10;    pub saved_file_name: String,&#10;    pub original_file_name: String,&#10;    pub file_size: i64,&#10;    pub status: String,&#10;    pub created_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;    pub updated_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;}&#10;&#10;#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]&#10;pub enum Relation {}&#10;&#10;impl ActiveModelBehavior for ActiveModel {&#10;    fn new() -&gt; Self {&#10;        Self {&#10;            saved_file_name: Set(Uuid::now_v7().to_string()),&#10;            ..ActiveModelTrait::default()&#10;        }&#10;    }&#10;}&#10;&#10;impl Model {&#10;    pub fn new_with_uuid(&#10;        original_file_name: String,&#10;        file_size: i64,&#10;        status: String,&#10;    ) -&gt; ActiveModel {&#10;        ActiveModel {&#10;            saved_file_name: Set(Uuid::now_v7().to_string()),&#10;            original_file_name: Set(original_file_name),&#10;            file_size: Set(file_size),&#10;            status: Set(status),&#10;            created_at: Set(chrono::Utc::now()),&#10;            updated_at: Set(chrono::Utc::now()),&#10;        }&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="use sea_orm::entity::prelude::*;&#10;use sea_orm::{Set, ActiveModelTrait};&#10;use serde::{Deserialize, Serialize};&#10;use uuid::Uuid;&#10;&#10;#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]&#10;#[sea_orm(table_name = &quot;file&quot;)]&#10;pub struct Model {&#10;    #[sea_orm(primary_key, auto_increment = false)]&#10;    pub saved_file_name: String,&#10;    pub original_file_name: String,&#10;    pub file_size: i64,&#10;    pub status: String,&#10;    pub created_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;    pub updated_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;}&#10;&#10;#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]&#10;pub enum Relation {}&#10;&#10;impl ActiveModelBehavior for ActiveModel {&#10;    fn new() -&gt; Self {&#10;        Self {&#10;            saved_file_name: Set(Uuid::now_v7().to_string()),&#10;            original_file_name: Set(String::new()),&#10;            file_size: Set(0),&#10;            status: Set(&quot;pending&quot;.to_string()),&#10;            created_at: Set(chrono::Utc::now()),&#10;            updated_at: Set(chrono::Utc::now()),&#10;        }&#10;    }&#10;}&#10;&#10;impl Model {&#10;    /// 새로운 파일 모델 생성 (UUID v7 자동 생성)&#10;    pub fn new_with_uuid(&#10;        original_file_name: String,&#10;        file_size: i64,&#10;        status: String,&#10;    ) -&gt; ActiveModel {&#10;        ActiveModel {&#10;            saved_file_name: Set(Uuid::now_v7().to_string()),&#10;            original_file_name: Set(original_file_name),&#10;            file_size: Set(file_size),&#10;            status: Set(status),&#10;            created_at: Set(chrono::Utc::now()),&#10;            updated_at: Set(chrono::Utc::now()),&#10;        }&#10;    }&#10;&#10;    /// UUID v7 값 검증 함수&#10;    pub fn validate_uuid_v7(&amp;self) -&gt; bool {&#10;        match Uuid::parse_str(&amp;self.saved_file_name) {&#10;            Ok(uuid) =&gt; {&#10;                // UUID v7 버전 확인 (version 7)&#10;                uuid.get_version() == Some(uuid::Version::SortRand)&#10;            }&#10;            Err(_) =&gt; false,&#10;        }&#10;    }&#10;&#10;    /// 새로운 UUID v7 생성 및 반환&#10;    pub fn generate_uuid_v7() -&gt; String {&#10;        Uuid::now_v7().to_string()&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/models/file_session.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/models/file_session.rs" />
+              <option name="updatedContent" value="use sea_orm::entity::prelude::*;&#10;use serde::{Deserialize, Serialize};&#10;&#10;#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]&#10;#[sea_orm(table_name = &quot;file_session&quot;)]&#10;pub struct Model {&#10;    #[sea_orm(primary_key)]&#10;    pub id: i32,&#10;    #[sea_orm(unique)]&#10;    pub session_id: String,&#10;    pub file_name: String,&#10;    pub file_size: i64,&#10;    pub uploaded_size: i64,&#10;    pub status: String,&#10;    pub created_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;    pub updated_at: chrono::DateTime&lt;chrono::Utc&gt;,&#10;}&#10;&#10;#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]&#10;pub enum Relation {}&#10;&#10;impl ActiveModelBehavior for ActiveModel {}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/models/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/models/mod.rs" />
+              <option name="originalContent" value="use serde::{Deserialize, Serialize};&#10;&#10;pub mod file;&#10;&#10;#[derive(Deserialize, Serialize)]&#10;pub struct InitUploadRequest {&#10;    #[serde(rename = &quot;fileName&quot;)]&#10;    pub file_name: String,&#10;    #[serde(rename = &quot;fileSize&quot;)]&#10;    pub file_size: i64,&#10;    #[serde(rename = &quot;totalChunks&quot;)]&#10;    pub total_chunks: i32,&#10;    #[serde(rename = &quot;mimeType&quot;)]&#10;    pub mime_type: Option&lt;String&gt;,  // Optional로 변경&#10;}&#10;" />
+              <option name="updatedContent" value="use serde::{Deserialize, Serialize};&#10;&#10;pub mod entity;  // entity 폴더 추가&#10;&#10;#[derive(Deserialize, Serialize)]&#10;pub struct InitUploadRequest {&#10;    #[serde(rename = &quot;fileName&quot;)]&#10;    pub file_name: String,&#10;    #[serde(rename = &quot;fileSize&quot;)]&#10;    pub file_size: i64,&#10;    #[serde(rename = &quot;totalChunks&quot;)]&#10;    pub total_chunks: i32,&#10;    #[serde(rename = &quot;mimeType&quot;)]&#10;    pub mime_type: Option&lt;String&gt;,&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/models/user_models.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/models/user_models.rs" />
+              <option name="updatedContent" value="use serde::{Deserialize, Serialize};&#10;&#10;#[derive(Deserialize)]&#10;pub struct CreateUserRequest {&#10;    pub name: String,&#10;    pub email: String,&#10;}&#10;&#10;#[derive(Serialize)]&#10;pub struct CreateUserResponse {&#10;    pub id: u32,&#10;    pub name: String,&#10;    pub email: String,&#10;    pub message: String,&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/routes/file_routes.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/routes/file_routes.rs" />
+              <option name="originalContent" value="use actix_web::{web, Scope};&#10;use crate::handlers::file_handlers;&#10;&#10;pub fn file_routes() -&gt; Scope {&#10;    web::scope(&quot;/files&quot;)&#10;        .route(&quot;/download&quot;, web::get().to(file_handlers::download))&#10;        .route(&quot;/upload/init&quot;, web::get().to(file_handlers::init))&#10;        .route(&quot;/upload/chunk&quot;, web::post().to(file_handlers::chunk))&#10;        .route(&quot;/upload/complete&quot;, web::post().to(file_handlers::complete))&#10;        .route(&quot;/upload/cancel&quot;, web::post().to(file_handlers::cancel))&#10;        .route(&quot;/upload/status&quot;, web::get().to(file_handlers::status))&#10;}" />
+              <option name="updatedContent" value="use actix_web::{web, Scope};&#10;use crate::handlers::file_handlers;&#10;&#10;pub fn file_routes() -&gt; Scope {&#10;    web::scope(&quot;/files&quot;)&#10;        .route(&quot;/download/{sessionId}&quot;, web::get().to(file_handlers::download))&#10;        .route(&quot;/upload/init&quot;, web::get().to(file_handlers::init))&#10;        .route(&quot;/upload/chunk&quot;, web::post().to(file_handlers::chunk))&#10;        .route(&quot;/upload/complete&quot;, web::post().to(file_handlers::complete))&#10;        .route(&quot;/upload/cancel&quot;, web::post().to(file_handlers::cancel))&#10;        .route(&quot;/upload/status&quot;, web::get().to(file_handlers::status))&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/routes/main_routes.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/routes/main_routes.rs" />
+              <option name="updatedContent" value="use actix_web::{web, Scope};&#10;use crate::handlers::main_handlers;&#10;&#10;pub fn main_routes() -&gt; Scope {&#10;    web::scope(&quot;/api&quot;)&#10;        .route(&quot;/hello&quot;, web::get().to(main_handlers::hello))&#10;        .route(&quot;/welcome/{name}&quot;, web::get().to(main_handlers::welcome))&#10;        .route(&quot;/users&quot;, web::post().to(main_handlers::create_user))&#10;        .route(&quot;/message&quot;, web::post().to(main_handlers::update_message))&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/routes/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/routes/mod.rs" />
+              <option name="updatedContent" value="pub mod main_routes;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/services/file_service.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/services/file_service.rs" />
+              <option name="originalContent" value="use crate::models::InitUploadRequest;&#10;&#10;pub struct FileService;&#10;&#10;impl FileService {&#10;    pub async fn download(session_id: String) -&gt; String {&#10;        format!(&quot;Downloading file for session: {}&quot;, session_id)&#10;    }&#10;&#10;    pub async fn init(request: InitUploadRequest) -&gt; String {&#10;        format!(&#10;            &quot;파일 업로드 초기화 - 파일명: {}, 크기: {} bytes, 청크 개수: {}, 타입: {:?}&quot;,&#10;            request.file_name,&#10;            request.file_size,&#10;            request.total_chunks,&#10;            request.mime_type&#10;        )&#10;    }&#10;&#10;    pub async fn chunk() -&gt; String {&#10;        &quot;this is file service chunk&quot;.to_string()&#10;    }&#10;&#10;    pub async fn complete() -&gt; String {&#10;        &quot;this is file service complete&quot;.to_string()&#10;    }&#10;&#10;    pub async fn cancel() -&gt; String {&#10;        &quot;this is file service cancel&quot;.to_string()&#10;    }&#10;&#10;    pub async fn status() -&gt; String {&#10;        &quot;this is file service status&quot;.to_string()&#10;    }&#10;}" />
+              <option name="updatedContent" value="use crate::models::InitUploadRequest;&#10;&#10;pub struct FileService;&#10;&#10;impl FileService {&#10;    pub async fn download(session_id: String) -&gt; String {&#10;        format!(&quot;Downloading file for session: {}&quot;, session_id)&#10;    }&#10;&#10;    pub async fn init(request: InitUploadRequest) -&gt; String {&#10;        let mime_type = request.mime_type&#10;            .unwrap_or_else(|| &quot;application/octet-stream&quot;.to_string());&#10;        &#10;        format!(&#10;            &quot;파일 업로드 초기화 - 파일명: {}, 크기: {} bytes, 청크수: {}, 타입: {}&quot;,&#10;            request.file_name,&#10;            request.file_size,&#10;            request.total_chunks,&#10;            mime_type&#10;        )&#10;    }&#10;&#10;    pub async fn chunk() -&gt; String {&#10;        &quot;this is file service chunk&quot;.to_string()&#10;    }&#10;&#10;    pub async fn complete() -&gt; String {&#10;        &quot;this is file service complete&quot;.to_string()&#10;    }&#10;&#10;    pub async fn cancel() -&gt; String {&#10;        &quot;this is file service cancel&quot;.to_string()&#10;    }&#10;&#10;    pub async fn status() -&gt; String {&#10;        &quot;this is file service status&quot;.to_string()&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/services/main_service.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/services/main_service.rs" />
+              <option name="originalContent" value="pub struct MainService;&#10;&#10;impl MainService {&#10;    pub async fn health_check() -&gt; &amp;'static str {&#10;        &quot;This is working!&quot;&#10;    }&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="pub struct MainService;&#10;&#10;impl MainService {&#10;    pub async fn health_check() -&gt; &amp;'static str {&#10;        &quot;This is working!&quot;&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/services/mod.rs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/services/mod.rs" />
+              <option name="updatedContent" value="pub mod main_service;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

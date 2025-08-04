@@ -1,8 +1,8 @@
 pub struct FileService;
 
 impl FileService {
-    pub async fn download() -> String {
-        "this is file service download".to_string()
+    pub async fn download(session_id: String) -> String {
+        format!("Downloading file for session: {}", session_id)
     }
 
     pub async fn init() -> String {

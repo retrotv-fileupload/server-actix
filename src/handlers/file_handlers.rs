@@ -1,8 +1,9 @@
-use actix_web::{HttpResponse, Result};
+use actix_web::{web, HttpResponse, Result};
 use crate::services::file_service::FileService;
 
-pub async fn download() -> Result<HttpResponse> {
-    let message = FileService::download().await;
+pub async fn download(path: web::Path<String>) -> Result<HttpResponse> {
+    let session_id = path.into_inner();
+    let message = FileService::download(session_id).await;
     Ok(HttpResponse::Ok().json(serde_json::json!({
         "message": message
     })))

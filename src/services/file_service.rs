@@ -1,3 +1,5 @@
+use crate::models::InitUploadRequest;
+
 pub struct FileService;
 
 impl FileService {
@@ -5,8 +7,17 @@ impl FileService {
         format!("Downloading file for session: {}", session_id)
     }
 
-    pub async fn init() -> String {
-        "this is file service".to_string()
+    pub async fn init(request: InitUploadRequest) -> String {
+        let mime_type = request.mime_type
+            .unwrap_or_else(|| "application/octet-stream".to_string());
+        
+        format!(
+            "파일 업로드 초기화 - 파일명: {}, 크기: {} bytes, 청크수: {}, 타입: {}",
+            request.file_name,
+            request.file_size,
+            request.total_chunks,
+            mime_type
+        )
     }
 
     pub async fn chunk() -> String {

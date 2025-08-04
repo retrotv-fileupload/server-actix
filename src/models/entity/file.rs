@@ -32,9 +32,9 @@ impl Model {
     pub fn new_with_uuid(
         original_file_name: String,
         file_path: String,
-        mime_type: Option<String>,
         size: i64,
         hash: String,
+        mime_type: Option<String>,
     ) -> ActiveModel {
         let now = chrono::Utc::now();
         ActiveModel {

@@ -53,7 +53,7 @@ async fn main() -> std::io::Result<()> {
                 let metadata = std::fs::metadata("./data/app.db").unwrap();
                 slog::info!(logger, "파일 크기: {} bytes", metadata.len());
             } else {
-                slog::warn!(logger, "app.db 파일이 생성되지 않았습니다.");
+                slog::warn!(logger, "app.db 파���이 생성되지 않았습니다.");
             }
         }
         Err(e) => {
@@ -68,7 +68,11 @@ async fn main() -> std::io::Result<()> {
     let logger_for_middleware = logger.clone();
     HttpServer::new(move || {
         App::new()
-            .wrap(SlogLoggingMiddleware::new(logger_for_middleware.clone()))
+            .wrap(
+                SlogLoggingMiddleware::new(logger_for_middleware.clone())
+                    .with_request_body_logging(true)
+                    .with_max_body_size(4096) // 4KB body 로깅 제한
+            )
             .service(
                 main_routes::main_routes()
                     .service(file_routes::file_routes())

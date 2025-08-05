@@ -13,3 +13,9 @@ sea-orm-migration = { version = "1.1", features = [ "sqlx-sqlite", "runtime-toki
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1.17.0", features = ["v7", "serde"] }
 migration = { path = "migration" }
+
+slog = "2.7"
+slog-term = "2.9"
+slog-async = "2.8"
+slog-json = "2.6"
+futures-util = "0.3"
